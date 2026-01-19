@@ -37,26 +37,32 @@ export async function POST(req) {
     const properties = await propertyTable
       .find({ employees: employeeId })
       .populate("ownerId", "name companyName")
-      .select("name status ownerId createdAt");
+      .select("name status ownerId createdAt")
+      .lean();
 
     // Get pending task counts for properties
     const { taskTable } = dbmodels();
     const propertyIds = properties.map(p => p._id);
-    const taskCounts = await taskTable.aggregate([
-      {
-        $match: {
-          propertyId: { $in: propertyIds },
-          completedAt: null,
-          completedBy: null
+    
+    // Only query if there are properties
+    let taskCounts = [];
+    if (propertyIds.length > 0) {
+      taskCounts = await taskTable.aggregate([
+        {
+          $match: {
+            propertyId: { $in: propertyIds },
+            completedAt: null,
+            completedBy: null
+          }
+        },
+        {
+          $group: {
+            _id: "$propertyId",
+            count: { $sum: 1 }
+          }
         }
-      },
-      {
-        $group: {
-          _id: "$propertyId",
-          count: { $sum: 1 }
-        }
-      }
-    ]);
+      ]);
+    }
 
     // Add task counts to properties
     const countsMap = {};

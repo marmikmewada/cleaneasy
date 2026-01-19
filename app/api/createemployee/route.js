@@ -15,6 +15,38 @@ export async function POST(req) {
     await connectToDatabase();
     const { userTable } = dbmodels();
 
+    // Check owner exists and get subscription limits
+    const owner = await userTable.findById(ownerId);
+    if (!owner || owner.role !== 'owner') {
+      return NextResponse.json(
+        { success: false, message: "Owner not found" },
+        { status: 404 }
+      );
+    }
+
+    // Check subscription expiry
+    if (owner.subscription?.expiresAt && new Date(owner.subscription.expiresAt) < new Date()) {
+      return NextResponse.json(
+        { success: false, message: "Subscription has expired. Please contact Marmik to renew." },
+        { status: 403 }
+      );
+    }
+
+    // Count current employees created by this owner
+    const currentEmployeeCount = await userTable.countDocuments({ 
+      ownerId, 
+      role: 'employee' 
+    });
+
+    // Check if owner has reached their employee limit
+    const maxEmployees = owner.subscription?.maxEmployees || 1;
+    if (currentEmployeeCount >= maxEmployees) {
+      return NextResponse.json(
+        { success: false, message: `You have reached your employee limit (${maxEmployees}). Please contact admin to increase your limit.` },
+        { status: 403 }
+      );
+    }
+
     // Check if email already exists
     const existing = await userTable.findOne({ email });
     if (existing) {
