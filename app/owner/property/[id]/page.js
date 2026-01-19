@@ -277,47 +277,47 @@ export default function PropertyPage() {
     );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white p-6">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white p-4 sm:p-6">
       <div className="max-w-7xl mx-auto">
-      <div className="flex justify-between items-center mb-6">
-        <div className="flex items-center gap-4">
-          <button
-            onClick={() => router.push(redirectPath)}
-            className="bg-gray-700 px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors"
-          >
-            ← Back
-          </button>
-          <h1 className="text-3xl font-bold text-blue-400">Property: {property?.name}</h1>
-        </div>
-        {!isEmployee && (
-          <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+          <div className="flex items-center gap-2 sm:gap-4">
             <button
-              onClick={() => router.push(`/owner/property/${id}/edit`)}
-              className="bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+              onClick={() => router.push(redirectPath)}
+              className="bg-gray-700 px-3 py-2 sm:px-4 sm:py-2 rounded-lg hover:bg-gray-600 transition-colors text-sm sm:text-base"
             >
-              Edit Property
+              ← Back
             </button>
-            <button
-              onClick={handleDeleteProperty}
-              className="bg-red-600 px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
-            >
-              Delete Property
-            </button>
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-blue-400 truncate">Property: {property?.name}</h1>
           </div>
-        )}
-      </div>
+          {!isEmployee && (
+            <div className="flex flex-wrap gap-2 w-full sm:w-auto">
+              <button
+                onClick={() => router.push(`/owner/property/${id}/edit`)}
+                className="bg-blue-600 px-3 py-2 sm:px-4 sm:py-2 rounded-lg hover:bg-blue-700 transition-colors text-xs sm:text-sm flex-1 sm:flex-none"
+              >
+                Edit
+              </button>
+              <button
+                onClick={handleDeleteProperty}
+                className="bg-red-600 px-3 py-2 sm:px-4 sm:py-2 rounded-lg hover:bg-red-700 transition-colors text-xs sm:text-sm flex-1 sm:flex-none"
+              >
+                Delete
+              </button>
+            </div>
+          )}
+        </div>
 
         {error && (
-          <div className="bg-red-700/50 backdrop-blur-md border border-red-600 p-4 rounded-lg mb-6 text-center">
+          <div className="bg-red-700/50 backdrop-blur-md border border-red-600 p-3 sm:p-4 rounded-lg mb-4 sm:mb-6 text-center text-sm sm:text-base">
             {error}
           </div>
         )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Property Info */}
           <div className="lg:col-span-1">
-            <div className="bg-gray-800/50 backdrop-blur-md rounded-xl p-6 border border-gray-700 shadow-xl mb-6">
-              <h2 className="text-lg font-semibold mb-4 text-blue-400">Property Information</h2>
+            <div className="bg-gray-800/50 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-gray-700 shadow-xl mb-4 sm:mb-6">
+              <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-blue-400">Property Information</h2>
               <div className="space-y-3">
                 <div>
                   <p className="text-sm text-gray-400">Name</p>
@@ -361,32 +361,32 @@ export default function PropertyPage() {
           </div>
 
         {/* Tasks Section */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-4 sm:space-y-6">
           {/* Create Task */}
-          <div className="bg-gray-800/50 backdrop-blur-md rounded-xl p-6 border border-gray-700 shadow-xl">
-            <h2 className="text-lg font-semibold mb-4 text-blue-400">Create New Task</h2>
-            <form onSubmit={handleCreateTask} className="flex gap-2">
+          <div className="bg-gray-800/50 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-gray-700 shadow-xl">
+            <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-blue-400">Create New Task</h2>
+            <form onSubmit={handleCreateTask} className="flex flex-col sm:flex-row gap-2">
               <input
                 type="text"
                 value={newTaskTitle}
                 onChange={(e) => setNewTaskTitle(e.target.value)}
                 placeholder="Enter task title..."
-                className="flex-1 px-4 py-3 bg-gray-700/50 rounded-lg text-white border border-gray-600 focus:border-blue-500 focus:outline-none"
+                className="flex-1 px-4 py-3 bg-gray-700/50 rounded-lg text-white text-sm sm:text-base border border-gray-600 focus:border-blue-500 focus:outline-none transition-colors"
                 disabled={creatingTask}
               />
               <button
                 type="submit"
                 disabled={creatingTask || !newTaskTitle.trim()}
-                className="bg-green-600 px-6 py-3 rounded-lg hover:bg-green-700 disabled:bg-gray-600 transition-colors font-medium"
+                className="bg-green-600 px-4 py-3 sm:px-6 sm:py-3 rounded-lg hover:bg-green-700 disabled:bg-gray-600 transition-colors font-medium text-sm sm:text-base"
               >
                 {creatingTask ? 'Creating...' : 'Create'}
               </button>
             </form>
           </div>
 
-          {/* Pending Tasks */}
-          <div className="bg-gray-800/50 backdrop-blur-md rounded-xl p-6 border border-gray-700 shadow-xl">
-            <h2 className="text-lg font-semibold mb-4 text-blue-400">Pending Tasks</h2>
+            {/* Pending Tasks */}
+            <div className="bg-gray-800/50 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-gray-700 shadow-xl">
+              <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-blue-400">Pending Tasks</h2>
             {tasksLoading ? (
               <div className="text-center py-8">
                 <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500 mx-auto"></div>
@@ -394,63 +394,63 @@ export default function PropertyPage() {
             ) : pendingTasks.length === 0 ? (
               <p className="text-gray-400 text-center py-8">No pending tasks</p>
             ) : (
-              <div className="space-y-3">
-                {pendingTasks.map(task => (
-                  <div key={task._id} className="bg-gray-700/50 rounded-lg p-4 border border-gray-600">
-                    <div className="flex justify-between items-start">
-                      <div className="flex-1">
-                        <p className="font-medium text-lg">{task.title}</p>
-                        <p className="text-sm text-gray-400 mt-1">
-                          Created by: {task.createdBy?.name || 'Unknown'} on {formatDate(task.createdAt)}
-                        </p>
-                      </div>
-                      <div className="flex gap-2 ml-4">
-                        <span className="bg-yellow-600 px-3 py-1 rounded text-xs font-medium">Pending</span>
-                        <button
-                          onClick={() => handleCompleteTask(task._id)}
-                          className="bg-green-600 px-3 py-1 rounded text-xs font-medium hover:bg-green-700 transition-colors"
-                        >
-                          Mark Done
-                        </button>
+                <div className="space-y-2 sm:space-y-3">
+                  {pendingTasks.map(task => (
+                    <div key={task._id} className="bg-gray-700/50 rounded-lg p-3 sm:p-4 border border-gray-600">
+                      <div className="flex flex-col sm:flex-row justify-between items-start gap-2 sm:gap-0">
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-base sm:text-lg break-words">{task.title}</p>
+                          <p className="text-xs sm:text-sm text-gray-400 mt-1 break-all">
+                            Created by: {task.createdBy?.name || 'Unknown'} on {formatDate(task.createdAt)}
+                          </p>
+                        </div>
+                        <div className="flex gap-2 w-full sm:w-auto">
+                          <span className="bg-yellow-600 px-2 py-1 sm:px-3 sm:py-1 rounded text-xs font-medium">Pending</span>
+                          <button
+                            onClick={() => handleCompleteTask(task._id)}
+                            className="bg-green-600 px-3 py-1 rounded text-xs font-medium hover:bg-green-700 transition-colors flex-1 sm:flex-none"
+                          >
+                            Mark Done
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
             )}
           </div>
 
-          {/* Completed Tasks */}
-          <div className="bg-gray-800/50 backdrop-blur-md rounded-xl p-6 border border-gray-700 shadow-xl">
-            <h2 className="text-lg font-semibold mb-4 text-blue-400">Completed Tasks</h2>
-            
-            {/* Date Filter */}
-            <div className="mb-4 grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-sm mb-2 text-gray-400">Start Date</label>
-                <input
-                  type="date"
-                  value={startDate}
-                  onChange={(e) => setStartDate(e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-700/50 rounded-lg text-white border border-gray-600 focus:border-blue-500 focus:outline-none"
-                />
+            {/* Completed Tasks */}
+            <div className="bg-gray-800/50 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-gray-700 shadow-xl">
+              <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-blue-400">Completed Tasks</h2>
+              
+              {/* Date Filter */}
+              <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
+                <div>
+                  <label className="block text-xs sm:text-sm mb-1 sm:mb-2 text-gray-400">Start Date</label>
+                  <input
+                    type="date"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                    className="w-full px-3 py-2 bg-gray-700/50 rounded-lg text-white text-sm sm:text-base border border-gray-600 focus:border-blue-500 focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs sm:text-sm mb-1 sm:mb-2 text-gray-400">End Date</label>
+                  <input
+                    type="date"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                    className="w-full px-3 py-2 bg-gray-700/50 rounded-lg text-white text-sm sm:text-base border border-gray-600 focus:border-blue-500 focus:outline-none"
+                  />
+                </div>
+                <button
+                  onClick={handleFilterCompletedTasks}
+                  className="col-span-1 sm:col-span-2 bg-purple-600 px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors font-medium text-sm sm:text-base"
+                >
+                  Filter Tasks
+                </button>
               </div>
-              <div>
-                <label className="block text-sm mb-2 text-gray-400">End Date</label>
-                <input
-                  type="date"
-                  value={endDate}
-                  onChange={(e) => setEndDate(e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-700/50 rounded-lg text-white border border-gray-600 focus:border-blue-500 focus:outline-none"
-                />
-              </div>
-              <button
-                onClick={handleFilterCompletedTasks}
-                className="col-span-2 bg-purple-600 px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors font-medium"
-              >
-                Filter Tasks
-              </button>
-            </div>
 
             {tasksLoading ? (
               <div className="text-center py-8">
@@ -459,24 +459,24 @@ export default function PropertyPage() {
             ) : completedTasks.length === 0 ? (
               <p className="text-gray-400 text-center py-8">No completed tasks found</p>
             ) : (
-              <div className="space-y-3 max-h-96 overflow-y-auto">
-                {completedTasks.map(task => (
-                  <div key={task._id} className="bg-gray-700/50 rounded-lg p-4 border border-gray-600">
-                    <div className="flex justify-between items-start">
-                      <div className="flex-1">
-                        <p className="font-medium text-lg">{task.title}</p>
-                        <p className="text-sm text-gray-400 mt-1">
-                          Created by: {task.createdBy?.name || 'Unknown'} on {formatDate(task.createdAt)}
-                        </p>
-                        <p className="text-sm text-gray-400">
-                          Completed by: {task.completedBy?.name || 'Unknown'} on {formatDate(task.completedAt)}
-                        </p>
+                <div className="space-y-2 sm:space-y-3 max-h-96 overflow-y-auto">
+                  {completedTasks.map(task => (
+                    <div key={task._id} className="bg-gray-700/50 rounded-lg p-3 sm:p-4 border border-gray-600">
+                      <div className="flex flex-col sm:flex-row justify-between items-start gap-2 sm:gap-0">
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-base sm:text-lg break-words">{task.title}</p>
+                          <p className="text-xs sm:text-sm text-gray-400 mt-1 break-all">
+                            Created by: {task.createdBy?.name || 'Unknown'} on {formatDate(task.createdAt)}
+                          </p>
+                          <p className="text-xs sm:text-sm text-gray-400 break-all">
+                            Completed by: {task.completedBy?.name || 'Unknown'} on {formatDate(task.completedAt)}
+                          </p>
+                        </div>
+                        <span className="bg-green-600 px-2 py-1 sm:px-3 sm:py-1 rounded text-xs font-medium sm:ml-4 mt-2 sm:mt-0">Completed</span>
                       </div>
-                      <span className="bg-green-600 px-3 py-1 rounded text-xs font-medium ml-4">Completed</span>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
             )}
           </div>
         </div>

@@ -96,6 +96,22 @@ export async function POST(req) {
       );
     }
 
+    // Check if owner subscription has expired
+    if (user.role === 'owner' && user.subscription?.expiresAt) {
+      const expiryDate = new Date(user.subscription.expiresAt);
+      const now = new Date();
+      if (expiryDate < now) {
+        return NextResponse.json(
+          { 
+            success: false, 
+            message: "SUBSCRIPTION_EXPIRED",
+            expiresAt: user.subscription.expiresAt
+          },
+          { status: 403 }
+        );
+      }
+    }
+
     // Create token
     const token = jwt.sign(
       {

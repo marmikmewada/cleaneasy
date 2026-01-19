@@ -158,100 +158,152 @@ export default function EmployeePage() {
     );
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-6">
-      <div className="flex justify-between items-center mb-4">
-        <div className="flex items-center gap-4">
-          <button
-            onClick={() => router.push('/owner')}
-            className="bg-gray-700 px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors"
-          >
-            ← Back
-          </button>
-          <h1 className="text-2xl font-bold">Employee Details</h1>
-        </div>
-        <button
-          onClick={handleDeleteEmployee}
-          className="bg-red-600 px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
-        >
-          Delete Employee
-        </button>
-      </div>
-
-      {error && (
-        <div className="bg-red-700 p-3 rounded mb-4 text-center">
-          {error}
-        </div>
-      )}
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Employee Info */}
-        <div className="bg-gray-800 p-4 rounded">
-          <h2 className="text-lg font-semibold mb-3">Employee Information</h2>
-          <div className="space-y-2">
-            <p><strong>Name:</strong> {employee?.name}</p>
-            <p><strong>Email:</strong> {employee?.email}</p>
-            <p><strong>Role:</strong> {employee?.role}</p>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white p-4 sm:p-6">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+          <div className="flex items-center gap-2 sm:gap-4">
+            <button
+              onClick={() => router.push('/owner')}
+              className="bg-gray-700 px-3 py-2 sm:px-4 sm:py-2 rounded-lg hover:bg-gray-600 transition-colors text-sm sm:text-base"
+            >
+              ← Back
+            </button>
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-blue-400">Employee Details</h1>
           </div>
+          <button
+            onClick={handleDeleteEmployee}
+            className="bg-red-600 px-4 py-2 rounded-lg hover:bg-red-700 transition-colors text-sm sm:text-base w-full sm:w-auto"
+          >
+            Delete Employee
+          </button>
         </div>
 
-        {/* Property Assignment */}
-        <div className="bg-gray-800 p-4 rounded">
-          <h2 className="text-lg font-semibold mb-3">Assign Properties</h2>
-          {allProperties.length === 0 ? (
-            <p className="text-gray-400">No properties available</p>
-          ) : (
-            <>
-              <div className="mb-4 max-h-64 overflow-y-auto">
-                <select
-                  multiple
-                  value={selectedProperties}
-                  onChange={(e) =>
-                    setSelectedProperties(Array.from(e.target.selectedOptions, o => o.value))
-                  }
-                  className="w-full p-2 rounded text-black min-h-48"
-                >
-                  {allProperties.map(prop => (
-                    <option key={prop._id} value={prop._id}>
-                      {prop.name} ({prop.status})
-                    </option>
-                  ))}
-                </select>
-                <p className="text-sm text-gray-400 mt-2">
-                  Hold Ctrl (or Cmd on Mac) to select multiple properties
-                </p>
+        {error && (
+          <div className="bg-red-700/50 border border-red-600 p-3 sm:p-4 rounded-lg mb-6 text-center text-sm sm:text-base">
+            {error}
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+          {/* Employee Info */}
+          <div className="bg-gradient-to-br from-blue-900/30 to-purple-900/30 backdrop-blur-md rounded-xl p-4 sm:p-6 border-2 border-blue-500/50 shadow-2xl">
+            <h2 className="text-lg sm:text-xl font-semibold mb-4 text-blue-400 flex items-center gap-2">
+              <span className="text-xl sm:text-2xl">👤</span>
+              Employee Information
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              <div className="bg-gray-700/30 rounded-lg p-3 border border-gray-600">
+                <p className="text-xs sm:text-sm text-gray-400 mb-1">Name</p>
+                <p className="text-base sm:text-lg font-bold text-white">{employee?.name}</p>
               </div>
-              <button
-                onClick={handleSave}
-                disabled={saving}
-                className="w-full bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 disabled:bg-gray-600"
-              >
-                {saving ? 'Saving...' : 'Save Assignments'}
-              </button>
-            </>
-          )}
-        </div>
-
-        {/* Currently Assigned Properties */}
-        <div className="bg-gray-800 p-4 rounded md:col-span-2">
-          <h2 className="text-lg font-semibold mb-3">Assigned Properties</h2>
-          {selectedProperties.length === 0 ? (
-            <p className="text-gray-400">No properties assigned yet</p>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-              {allProperties
-                .filter(prop => selectedProperties.includes(prop._id))
-                .map(prop => (
-                  <div
-                    key={prop._id}
-                    className="bg-gray-700 p-3 rounded cursor-pointer hover:bg-gray-600"
-                    onClick={() => router.push(`/owner/property/${prop._id}`)}
-                  >
-                    <div className="font-medium">{prop.name}</div>
-                    <div className="text-sm text-gray-400">Status: {prop.status}</div>
-                  </div>
-                ))}
+              <div className="bg-gray-700/30 rounded-lg p-3 border border-gray-600">
+                <p className="text-xs sm:text-sm text-gray-400 mb-1">Email</p>
+                <p className="text-base sm:text-lg font-medium text-gray-300 break-all">{employee?.email}</p>
+              </div>
+              <div className="bg-gray-700/30 rounded-lg p-3 border border-gray-600 sm:col-span-2">
+                <p className="text-xs sm:text-sm text-gray-400 mb-1">Role</p>
+                <p className="text-base sm:text-lg font-medium text-white">{employee?.role}</p>
+              </div>
             </div>
-          )}
+          </div>
+
+          {/* Property Assignment */}
+          <div className="bg-gray-800/50 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-gray-700 shadow-xl">
+            <h2 className="text-lg sm:text-xl font-semibold mb-4 text-blue-400 flex items-center gap-2">
+              <span className="text-xl sm:text-2xl">🏢</span>
+              Assign Properties
+            </h2>
+            {allProperties.length === 0 ? (
+              <div className="text-center py-8">
+                <p className="text-gray-400 text-sm sm:text-base">No properties available</p>
+                <p className="text-gray-500 text-xs sm:text-sm mt-2">Create properties first to assign them</p>
+              </div>
+            ) : (
+              <>
+                <div className="bg-gray-700/30 rounded-lg p-3 sm:p-4 border border-gray-600 max-h-64 sm:max-h-80 overflow-y-auto mb-4">
+                  {allProperties.map(prop => {
+                    const isSelected = selectedProperties.includes(prop._id);
+                    return (
+                      <label
+                        key={prop._id}
+                        className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all mb-2 ${
+                          isSelected
+                            ? 'bg-blue-600/50 border-2 border-blue-500'
+                            : 'bg-gray-600/30 border-2 border-gray-600 hover:border-gray-500'
+                        }`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isSelected}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setSelectedProperties([...selectedProperties, prop._id]);
+                            } else {
+                              setSelectedProperties(selectedProperties.filter(id => id !== prop._id));
+                            }
+                          }}
+                          className="w-4 h-4 sm:w-5 sm:h-5 rounded border-gray-500 text-blue-600 focus:ring-blue-500"
+                        />
+                        <div className="flex-1 min-w-0">
+                          <div className="font-medium text-white text-sm sm:text-base truncate">{prop.name}</div>
+                          <div className="text-xs sm:text-sm text-gray-400">{prop.status}</div>
+                        </div>
+                        {isSelected && (
+                          <span className="text-blue-400 text-lg sm:text-xl flex-shrink-0">✓</span>
+                        )}
+                      </label>
+                    );
+                  })}
+                </div>
+                <p className="text-xs sm:text-sm text-gray-400 mb-4 text-center">
+                  {selectedProperties.length} property(s) selected
+                </p>
+                <button
+                  onClick={handleSave}
+                  disabled={saving}
+                  className="w-full bg-blue-600 px-4 py-3 rounded-lg hover:bg-blue-700 disabled:bg-gray-600 transition-colors font-medium text-sm sm:text-base"
+                >
+                  {saving ? 'Saving...' : 'Save Assignments'}
+                </button>
+              </>
+            )}
+          </div>
+
+          {/* Currently Assigned Properties */}
+          <div className="bg-gray-800/50 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-gray-700 shadow-xl lg:col-span-2">
+            <h2 className="text-lg sm:text-xl font-semibold mb-4 text-blue-400 flex items-center gap-2">
+              <span className="text-xl sm:text-2xl">📋</span>
+              Assigned Properties ({selectedProperties.length})
+            </h2>
+            {selectedProperties.length === 0 ? (
+              <div className="text-center py-8 bg-gray-700/30 rounded-lg border border-gray-600">
+                <p className="text-gray-400 text-sm sm:text-base">No properties assigned yet</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+                {allProperties
+                  .filter(prop => selectedProperties.includes(prop._id))
+                  .map(prop => (
+                    <div
+                      key={prop._id}
+                      className="bg-gradient-to-r from-gray-700/50 to-gray-600/50 hover:from-gray-600/70 hover:to-gray-500/70 rounded-xl p-4 cursor-pointer transition-all duration-300 border-2 border-gray-600 hover:border-green-500 hover:shadow-lg hover:scale-105 transform"
+                      onClick={() => router.push(`/owner/property/${prop._id}`)}
+                    >
+                      <div className="font-bold text-base sm:text-lg text-white mb-2">{prop.name}</div>
+                      <div className="flex items-center gap-2">
+                        <span className={`px-2 py-1 rounded-full text-xs font-bold ${
+                          prop.status === 'active' 
+                            ? 'bg-green-500 text-white' 
+                            : 'bg-gray-600 text-gray-300'
+                        }`}>
+                          {prop.status}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

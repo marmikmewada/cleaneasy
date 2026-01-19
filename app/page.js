@@ -60,7 +60,11 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (!data.success) {
-        setError(data.message || 'Login failed');
+        if (data.message === 'SUBSCRIPTION_EXPIRED') {
+          setError('SUBSCRIPTION_EXPIRED');
+        } else {
+          setError(data.message || 'Login failed');
+        }
         setLoading(false);
         return;
       }
@@ -95,20 +99,31 @@ export default function LoginPage() {
         <p className="text-gray-400 text-center mb-6">Sign in to your account</p>
 
         {error && (
-          <div className="bg-red-700/50 border border-red-600 p-3 rounded-lg mb-4 text-center">
-            {error}
+          <div className={`border p-3 sm:p-4 rounded-lg mb-4 text-center ${
+            error === 'SUBSCRIPTION_EXPIRED' 
+              ? 'bg-red-900/50 border-red-600' 
+              : 'bg-red-700/50 border-red-600'
+          }`}>
+            {error === 'SUBSCRIPTION_EXPIRED' ? (
+              <div>
+                <p className="text-red-300 font-semibold mb-2 text-sm sm:text-base">Subscription Expired</p>
+                <p className="text-red-200 text-xs sm:text-sm">Please contact Marmik to renew your subscription.</p>
+              </div>
+            ) : (
+              <p className="text-sm sm:text-base">{error}</p>
+            )}
           </div>
         )}
 
         {/* Login Type Toggle */}
-        <div className="mb-6 flex gap-2 bg-gray-700/50 p-1 rounded-lg">
+        <div className="mb-4 sm:mb-6 flex gap-2 bg-gray-700/50 p-1 rounded-lg">
           <button
             type="button"
             onClick={() => {
               setLoginType('owner');
               setError('');
             }}
-            className={`flex-1 py-2 rounded-md transition-colors ${
+            className={`flex-1 py-2 rounded-md transition-colors text-xs sm:text-sm ${
               loginType === 'owner'
                 ? 'bg-blue-600 text-white'
                 : 'text-gray-400 hover:text-white'
@@ -122,7 +137,7 @@ export default function LoginPage() {
               setLoginType('employee');
               setError('');
             }}
-            className={`flex-1 py-2 rounded-md transition-colors ${
+            className={`flex-1 py-2 rounded-md transition-colors text-xs sm:text-sm ${
               loginType === 'employee'
                 ? 'bg-green-600 text-white'
                 : 'text-gray-400 hover:text-white'
@@ -132,42 +147,42 @@ export default function LoginPage() {
           </button>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-5">
+        <form onSubmit={handleLogin} className="space-y-4 sm:space-y-5">
           {loginType === 'employee' ? (
             <div>
-              <label className="block text-sm text-gray-400 mb-2">Your Name</label>
+              <label className="block text-xs sm:text-sm text-gray-400 mb-2">Your Name</label>
               <input
                 type="text"
                 placeholder="Enter your name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg focus:border-green-500 focus:outline-none transition-colors text-lg"
+                className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg focus:border-green-500 focus:outline-none transition-colors text-base sm:text-lg"
                 required
               />
               <p className="text-xs text-gray-500 mt-1">Simple name login for employees</p>
             </div>
           ) : (
             <div>
-              <label className="block text-sm text-gray-400 mb-2">Email</label>
+              <label className="block text-xs sm:text-sm text-gray-400 mb-2">Email</label>
               <input
                 type="email"
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg focus:border-blue-500 focus:outline-none transition-colors"
+                className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg focus:border-blue-500 focus:outline-none transition-colors text-base sm:text-lg"
                 required
               />
             </div>
           )}
 
           <div>
-            <label className="block text-sm text-gray-400 mb-2">Password</label>
+            <label className="block text-xs sm:text-sm text-gray-400 mb-2">Password</label>
             <input
               type="password"
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg focus:border-blue-500 focus:outline-none transition-colors text-lg"
+              className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg focus:border-blue-500 focus:outline-none transition-colors text-base sm:text-lg"
               required
             />
           </div>
@@ -175,13 +190,13 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 py-3 rounded-lg hover:bg-blue-700 disabled:bg-gray-600 transition-colors font-medium text-lg"
+            className="w-full bg-blue-600 py-3 rounded-lg hover:bg-blue-700 disabled:bg-gray-600 transition-colors font-medium text-base sm:text-lg"
           >
             {loading ? 'Logging in...' : 'Sign In'}
           </button>
         </form>
         
-        <p className="text-center text-sm text-gray-400 mt-6">
+        <p className="text-center text-xs sm:text-sm text-gray-400 mt-4 sm:mt-6">
           Don&apos;t have an account?{' '}
           <a href="/signup" className="text-blue-400 hover:text-blue-300">
             Sign up

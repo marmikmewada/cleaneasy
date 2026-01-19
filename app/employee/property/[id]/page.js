@@ -223,17 +223,17 @@ export default function EmployeePropertyPage() {
     );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white p-6">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white p-4 sm:p-6">
       <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-6">
-          <div className="flex items-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+          <div className="flex items-center gap-2 sm:gap-4">
             <button
               onClick={() => router.push('/employee')}
-              className="bg-gray-700 px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors"
+              className="bg-gray-700 px-3 py-2 sm:px-4 sm:py-2 rounded-lg hover:bg-gray-600 transition-colors text-sm sm:text-base"
             >
               ← Back
             </button>
-            <h1 className="text-3xl font-bold text-blue-400">Property: {property?.name}</h1>
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-blue-400 truncate">Property: {property?.name}</h1>
           </div>
         </div>
 
@@ -243,11 +243,11 @@ export default function EmployeePropertyPage() {
           </div>
         )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Property Info */}
           <div className="lg:col-span-1">
-            <div className="bg-gray-800/50 backdrop-blur-md rounded-xl p-6 border border-gray-700 shadow-xl mb-6">
-              <h2 className="text-lg font-semibold mb-4 text-blue-400">Property Information</h2>
+            <div className="bg-gray-800/50 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-gray-700 shadow-xl mb-4 sm:mb-6">
+              <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-blue-400">Property Information</h2>
               <div className="space-y-3">
                 <div>
                   <p className="text-sm text-gray-400">Name</p>
@@ -268,26 +268,26 @@ export default function EmployeePropertyPage() {
           </div>
 
           {/* Tasks Section */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-4 sm:space-y-6">
             {/* Create Task */}
-            <div className="bg-gradient-to-br from-green-900/30 to-emerald-900/30 backdrop-blur-md rounded-xl p-6 border-2 border-green-500/50 shadow-2xl">
-              <h2 className="text-xl font-semibold mb-4 text-green-400 flex items-center gap-2">
-                <span className="text-2xl">➕</span>
+            <div className="bg-gradient-to-br from-green-900/30 to-emerald-900/30 backdrop-blur-md rounded-xl p-4 sm:p-6 border-2 border-green-500/50 shadow-2xl">
+              <h2 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-green-400 flex items-center gap-2">
+                <span className="text-xl sm:text-2xl">➕</span>
                 Add New Task
               </h2>
-              <form onSubmit={handleCreateTask} className="flex gap-3">
+              <form onSubmit={handleCreateTask} className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                 <input
                   type="text"
                   value={newTaskTitle}
                   onChange={(e) => setNewTaskTitle(e.target.value)}
                   placeholder="What needs to be done?"
-                  className="flex-1 px-5 py-4 bg-gray-700/50 rounded-xl text-white text-lg border-2 border-gray-600 focus:border-green-500 focus:outline-none transition-all"
+                  className="flex-1 px-4 py-3 sm:px-5 sm:py-4 bg-gray-700/50 rounded-xl text-white text-base sm:text-lg border-2 border-gray-600 focus:border-green-500 focus:outline-none transition-all"
                   disabled={creatingTask}
                 />
                 <button
                   type="submit"
                   disabled={creatingTask || !newTaskTitle.trim()}
-                  className="bg-gradient-to-r from-green-600 to-emerald-600 px-8 py-4 rounded-xl hover:from-green-700 hover:to-emerald-700 disabled:bg-gray-600 disabled:from-gray-600 disabled:to-gray-600 transition-all font-bold text-lg shadow-lg shadow-green-500/50"
+                  className="bg-gradient-to-r from-green-600 to-emerald-600 px-6 py-3 sm:px-8 sm:py-4 rounded-xl hover:from-green-700 hover:to-emerald-700 disabled:bg-gray-600 disabled:from-gray-600 disabled:to-gray-600 transition-all font-bold text-sm sm:text-lg shadow-lg shadow-green-500/50"
                 >
                   {creatingTask ? 'Adding...' : '➕ Add'}
                 </button>
@@ -295,9 +295,9 @@ export default function EmployeePropertyPage() {
             </div>
 
             {/* Pending Tasks */}
-            <div className="bg-gradient-to-br from-yellow-900/30 to-orange-900/30 backdrop-blur-md rounded-xl p-6 border-2 border-yellow-500/50 shadow-2xl">
-              <h2 className="text-xl font-semibold mb-4 text-yellow-400 flex items-center gap-2">
-                <span className="text-2xl">📝</span>
+            <div className="bg-gradient-to-br from-yellow-900/30 to-orange-900/30 backdrop-blur-md rounded-xl p-4 sm:p-6 border-2 border-yellow-500/50 shadow-2xl">
+              <h2 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-yellow-400 flex items-center gap-2">
+                <span className="text-xl sm:text-2xl">📝</span>
                 Tasks To Do ({pendingTasks.length})
               </h2>
               {tasksLoading ? (
@@ -307,23 +307,23 @@ export default function EmployeePropertyPage() {
               ) : pendingTasks.length === 0 ? (
                 <p className="text-gray-400 text-center py-8">No pending tasks</p>
               ) : (
-                <div className="space-y-3">
+                <div className="space-y-2 sm:space-y-3">
                   {pendingTasks.map(task => (
-                    <div key={task._id} className="bg-gradient-to-r from-gray-700/70 to-gray-600/70 rounded-xl p-5 border-2 border-yellow-500/50 shadow-lg hover:shadow-xl transition-all">
-                      <div className="flex justify-between items-start">
-                        <div className="flex-1">
-                          <p className="font-bold text-xl text-white mb-2">{task.title}</p>
-                          <p className="text-sm text-gray-300">
+                    <div key={task._id} className="bg-gradient-to-r from-gray-700/70 to-gray-600/70 rounded-xl p-3 sm:p-5 border-2 border-yellow-500/50 shadow-lg hover:shadow-xl transition-all">
+                      <div className="flex flex-col sm:flex-row justify-between items-start gap-3">
+                        <div className="flex-1 min-w-0">
+                          <p className="font-bold text-base sm:text-xl text-white mb-2 break-words">{task.title}</p>
+                          <p className="text-xs sm:text-sm text-gray-300">
                             <span className="font-medium">Added by:</span> {task.createdBy?.name || 'Unknown'} 
                             <span className="text-gray-500"> • </span>
-                            {formatDate(task.createdAt)}
+                            <span className="break-all">{formatDate(task.createdAt)}</span>
                           </p>
                         </div>
-                        <div className="flex flex-col gap-2 ml-4">
-                          <span className="bg-yellow-500 px-4 py-2 rounded-lg text-xs font-bold text-white shadow-lg">⏳ To Do</span>
+                        <div className="flex flex-row sm:flex-col gap-2 w-full sm:w-auto">
+                          <span className="bg-yellow-500 px-3 py-1 sm:px-4 sm:py-2 rounded-lg text-xs font-bold text-white shadow-lg">⏳ To Do</span>
                           <button
                             onClick={() => handleCompleteTask(task._id)}
-                            className="bg-gradient-to-r from-green-600 to-emerald-600 px-4 py-2 rounded-lg text-xs font-bold text-white hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg shadow-green-500/50"
+                            className="bg-gradient-to-r from-green-600 to-emerald-600 px-3 py-1 sm:px-4 sm:py-2 rounded-lg text-xs font-bold text-white hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg shadow-green-500/50 flex-1 sm:flex-none"
                           >
                             ✓ Mark Done
                           </button>
@@ -336,35 +336,35 @@ export default function EmployeePropertyPage() {
             </div>
 
             {/* Completed Tasks */}
-            <div className="bg-gradient-to-br from-green-900/30 to-teal-900/30 backdrop-blur-md rounded-xl p-6 border-2 border-green-500/50 shadow-2xl">
-              <h2 className="text-xl font-semibold mb-4 text-green-400 flex items-center gap-2">
-                <span className="text-2xl">✅</span>
+            <div className="bg-gradient-to-br from-green-900/30 to-teal-900/30 backdrop-blur-md rounded-xl p-4 sm:p-6 border-2 border-green-500/50 shadow-2xl">
+              <h2 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-green-400 flex items-center gap-2">
+                <span className="text-xl sm:text-2xl">✅</span>
                 Completed Tasks ({completedTasks.length})
               </h2>
               
               {/* Date Filter */}
-              <div className="mb-4 grid grid-cols-2 gap-3">
+              <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
                 <div>
-                  <label className="block text-sm mb-2 text-gray-400">Start Date</label>
+                  <label className="block text-xs sm:text-sm mb-1 sm:mb-2 text-gray-400">Start Date</label>
                   <input
                     type="date"
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
-                    className="w-full px-3 py-2 bg-gray-700/50 rounded-lg text-white border border-gray-600 focus:border-blue-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-gray-700/50 rounded-lg text-white text-sm sm:text-base border border-gray-600 focus:border-blue-500 focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm mb-2 text-gray-400">End Date</label>
+                  <label className="block text-xs sm:text-sm mb-1 sm:mb-2 text-gray-400">End Date</label>
                   <input
                     type="date"
                     value={endDate}
                     onChange={(e) => setEndDate(e.target.value)}
-                    className="w-full px-3 py-2 bg-gray-700/50 rounded-lg text-white border border-gray-600 focus:border-blue-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-gray-700/50 rounded-lg text-white text-sm sm:text-base border border-gray-600 focus:border-blue-500 focus:outline-none"
                   />
                 </div>
                 <button
                   onClick={handleFilterCompletedTasks}
-                  className="col-span-2 bg-purple-600 px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors font-medium"
+                  className="col-span-1 sm:col-span-2 bg-purple-600 px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors font-medium text-sm sm:text-base"
                 >
                   Filter Tasks
                 </button>

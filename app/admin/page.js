@@ -124,8 +124,8 @@ export default function AdminPage() {
         )}
 
         {/* Owners List */}
-        <div className="bg-gray-800/50 backdrop-blur-md border border-gray-700 rounded-xl p-6 shadow-xl">
-          <h2 className="text-xl font-semibold mb-4 text-blue-400">All Owners</h2>
+        <div className="bg-gray-800/50 backdrop-blur-md border border-gray-700 rounded-xl p-4 sm:p-6 shadow-xl">
+          <h2 className="text-lg sm:text-xl font-semibold mb-4 text-blue-400">All Owners</h2>
           {owners.length === 0 ? (
             <p className="text-gray-400 text-center py-8">No owners found</p>
           ) : (
@@ -133,93 +133,91 @@ export default function AdminPage() {
               {owners.map((owner) => (
                 <div
                   key={owner._id}
-                  className="bg-gray-700/50 rounded-lg p-4 border border-gray-600"
+                  className="bg-gray-700/50 rounded-lg p-3 sm:p-4 border border-gray-600"
                 >
-                  <div className="flex justify-between items-start">
-                    <div className="flex-1">
-                      <h3 className="text-lg font-semibold">{owner.name}</h3>
-                      <p className="text-sm text-gray-400">{owner.email}</p>
+                  <div className="flex flex-col sm:flex-row justify-between items-start gap-3 sm:gap-0">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-base sm:text-lg font-semibold truncate">{owner.name}</h3>
+                      <p className="text-xs sm:text-sm text-gray-400 break-all">{owner.email}</p>
                       {owner.companyName && (
-                        <p className="text-sm text-gray-300 mt-1">Company: {owner.companyName}</p>
+                        <p className="text-xs sm:text-sm text-gray-300 mt-1">Company: {owner.companyName}</p>
                       )}
-                      <div className="mt-3 flex gap-4">
+                      <div className="mt-3 flex flex-col sm:flex-row gap-2 sm:gap-4">
                         <div>
-                          <span className="text-sm text-gray-400">Max Properties: </span>
-                          <span className="text-lg font-medium text-green-400">
+                          <span className="text-xs sm:text-sm text-gray-400">Max Properties: </span>
+                          <span className="text-base sm:text-lg font-medium text-green-400">
                             {owner.subscription?.maxProperties || 2}
                           </span>
                         </div>
                         <div>
-                          <span className="text-sm text-gray-400">Max Employees: </span>
-                          <span className="text-lg font-medium text-blue-400">
+                          <span className="text-xs sm:text-sm text-gray-400">Max Employees: </span>
+                          <span className="text-base sm:text-lg font-medium text-blue-400">
                             {owner.subscription?.maxEmployees || 1}
                           </span>
                         </div>
                       </div>
-                    </div>
-                    <div className="flex flex-col gap-2">
                       {owner.subscription?.expiresAt && (
-                        <div className="text-xs text-gray-400">
+                        <div className="mt-2 text-xs text-gray-400">
                           Expires: {new Date(owner.subscription.expiresAt).toLocaleDateString()}
                         </div>
                       )}
-                      <button
-                        onClick={() => {
-                          setEditingOwner(owner._id);
-                          setMaxProperties(owner.subscription?.maxProperties || 2);
-                          setMaxEmployees(owner.subscription?.maxEmployees || 1);
-                          setExpiryDate(owner.subscription?.expiresAt 
-                            ? new Date(owner.subscription.expiresAt).toISOString().split('T')[0]
-                            : '');
-                        }}
-                        className="bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-                      >
-                        Edit Limits
-                      </button>
                     </div>
+                    <button
+                      onClick={() => {
+                        setEditingOwner(owner._id);
+                        setMaxProperties(owner.subscription?.maxProperties || 2);
+                        setMaxEmployees(owner.subscription?.maxEmployees || 1);
+                        setExpiryDate(owner.subscription?.expiresAt 
+                          ? new Date(owner.subscription.expiresAt).toISOString().split('T')[0]
+                          : '');
+                      }}
+                      className="bg-blue-600 px-3 py-2 sm:px-4 sm:py-2 rounded-lg hover:bg-blue-700 transition-colors text-xs sm:text-sm w-full sm:w-auto"
+                    >
+                      Edit Limits
+                    </button>
                   </div>
 
                   {editingOwner === owner._id && (
-                    <div className="mt-4 p-4 bg-gray-800/50 rounded-lg border border-gray-600">
-                      <h4 className="font-semibold mb-4 text-blue-400">Update Subscription</h4>
-                      <div className="grid grid-cols-2 gap-4 mb-4">
+                    <div className="mt-4 p-3 sm:p-4 bg-gray-800/50 rounded-lg border border-gray-600">
+                      <h4 className="font-semibold mb-3 sm:mb-4 text-blue-400 text-sm sm:text-base">Update Subscription</h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-4">
                         <div>
-                          <label className="block text-sm text-gray-400 mb-2">Max Properties</label>
+                          <label className="block text-xs sm:text-sm text-gray-400 mb-2">Max Properties</label>
                           <input
                             type="number"
                             value={maxProperties}
                             onChange={(e) => setMaxProperties(e.target.value)}
-                            className="w-full px-3 py-2 bg-gray-700/50 border border-gray-600 rounded-lg text-white focus:border-blue-500 focus:outline-none"
+                            className="w-full px-3 py-2 bg-gray-700/50 border border-gray-600 rounded-lg text-white text-sm sm:text-base focus:border-blue-500 focus:outline-none"
                             min="1"
                           />
                         </div>
                         <div>
-                          <label className="block text-sm text-gray-400 mb-2">Max Employees</label>
+                          <label className="block text-xs sm:text-sm text-gray-400 mb-2">Max Employees</label>
                           <input
                             type="number"
                             value={maxEmployees}
                             onChange={(e) => setMaxEmployees(e.target.value)}
-                            className="w-full px-3 py-2 bg-gray-700/50 border border-gray-600 rounded-lg text-white focus:border-blue-500 focus:outline-none"
+                            className="w-full px-3 py-2 bg-gray-700/50 border border-gray-600 rounded-lg text-white text-sm sm:text-base focus:border-blue-500 focus:outline-none"
                             min="1"
                           />
                         </div>
                       </div>
                       <div className="mb-4">
-                        <label className="block text-sm text-gray-400 mb-2">Subscription Expiry Date (Optional)</label>
+                        <label className="block text-xs sm:text-sm text-gray-400 mb-2">Subscription Expiry Date (Optional)</label>
                         <input
                           type="date"
                           value={expiryDate}
                           onChange={(e) => setExpiryDate(e.target.value)}
-                          className="w-full px-3 py-2 bg-gray-700/50 border border-gray-600 rounded-lg text-white focus:border-blue-500 focus:outline-none"
+                          className="w-full px-3 py-2 bg-gray-700/50 border border-gray-600 rounded-lg text-white text-sm sm:text-base focus:border-blue-500 focus:outline-none"
                         />
                         <p className="text-xs text-gray-500 mt-1">
                           Leave empty for unlimited. Set date to expire subscription.
                         </p>
                       </div>
-                      <div className="flex gap-2">
+                      <div className="flex flex-col sm:flex-row gap-2">
                         <button
                           onClick={() => handleUpdateLimits(owner._id)}
-                          className="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+                          className="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-sm sm:text-base"
                         >
                           Save Changes
                         </button>
@@ -228,7 +226,7 @@ export default function AdminPage() {
                             setEditingOwner(null);
                             setExpiryDate('');
                           }}
-                          className="bg-gray-600 px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors"
+                          className="bg-gray-600 px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors text-sm sm:text-base"
                         >
                           Cancel
                         </button>
