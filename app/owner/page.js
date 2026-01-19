@@ -112,12 +112,49 @@ export default function OwnerPage() {
       </nav>
 
       <div className="max-w-7xl mx-auto p-6">
+        {/* Owner Info Card */}
+        <div className="bg-gradient-to-br from-blue-900/30 to-purple-900/30 backdrop-blur-md rounded-xl p-6 mb-6 border-2 border-blue-500/50 shadow-2xl">
+          <h2 className="text-xl font-semibold mb-5 text-blue-400 flex items-center gap-2">
+            <span className="text-2xl">👤</span>
+            Owner Profile
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-gray-700/30 rounded-lg p-3 border border-gray-600">
+              <p className="text-sm text-gray-400 mb-1">Name</p>
+              <p className="text-xl font-bold text-white">{owner?.name}</p>
+            </div>
+            <div className="bg-gray-700/30 rounded-lg p-3 border border-gray-600">
+              <p className="text-sm text-gray-400 mb-1">Company</p>
+              <p className="text-xl font-bold text-white">{owner?.companyName || 'N/A'}</p>
+            </div>
+            <div className="bg-gray-700/30 rounded-lg p-3 border border-gray-600">
+              <p className="text-sm text-gray-400 mb-1">Email</p>
+              <p className="text-lg font-medium text-gray-300">{owner?.email}</p>
+            </div>
+            <div className="bg-gray-700/30 rounded-lg p-3 border border-gray-600">
+              <p className="text-sm text-gray-400 mb-1">Subscription</p>
+              <div className="flex gap-2">
+                <span className="text-sm text-green-400">
+                  {properties.length}/{owner?.subscription?.maxProperties || 2} Properties
+                </span>
+                <span className="text-gray-500">•</span>
+                <span className="text-sm text-blue-400">
+                  {employees.length}/{owner?.subscription?.maxEmployees || 1} Employees
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Employees */}
           <div className="bg-gray-800/50 backdrop-blur-md rounded-xl p-6 border border-gray-700 shadow-xl">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold text-blue-400">Employees</h2>
-              <span className="bg-blue-600 px-3 py-1 rounded-full text-sm">
+              <h2 className="text-xl font-semibold text-blue-400 flex items-center gap-2">
+                <span className="text-2xl">👥</span>
+                Employees
+              </h2>
+              <span className="bg-blue-600 px-3 py-1 rounded-full text-sm font-bold">
                 {employees.length}
               </span>
             </div>
@@ -155,8 +192,11 @@ export default function OwnerPage() {
           {/* Properties */}
           <div className="bg-gray-800/50 backdrop-blur-md rounded-xl p-6 border border-gray-700 shadow-xl">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold text-blue-400">Properties</h2>
-              <span className="bg-green-600 px-3 py-1 rounded-full text-sm">
+              <h2 className="text-xl font-semibold text-blue-400 flex items-center gap-2">
+                <span className="text-2xl">🏢</span>
+                Properties
+              </h2>
+              <span className="bg-green-600 px-3 py-1 rounded-full text-sm font-bold">
                 {properties.length}
               </span>
             </div>
