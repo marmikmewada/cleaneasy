@@ -102,7 +102,7 @@ export default function PropertyPage() {
     }
   };
 
-  const fetchTasks = async (start = null, end = null) => {
+  const fetchTasks = async ({ includeCompleted = false, start = null, end = null } = {}) => {
     setTasksLoading(true);
     try {
       // Fetch pending tasks
@@ -122,23 +122,28 @@ export default function PropertyPage() {
         }
       }
 
-      // Fetch completed tasks
-      const resCompleted = await fetch('/api/tasks/getpropertytasks', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          propertyId: id,
-          status: 'completed',
-          startDate: start || startDate || null,
-          endDate: end || endDate || null
-        })
-      });
+      // Optionally fetch completed tasks (only when user explicitly filters)
+      if (includeCompleted) {
+        const resCompleted = await fetch('/api/tasks/getpropertytasks', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            propertyId: id,
+            status: 'completed',
+            startDate: start || startDate || null,
+            endDate: end || endDate || null
+          })
+        });
 
-      if (resCompleted.ok) {
-        const dataCompleted = await resCompleted.json();
-        if (dataCompleted.success) {
-          setCompletedTasks(dataCompleted.data);
+        if (resCompleted.ok) {
+          const dataCompleted = await resCompleted.json();
+          if (dataCompleted.success) {
+            setCompletedTasks(dataCompleted.data);
+          }
         }
+      } else {
+        // When not filtering, don't keep old completed list around
+        setCompletedTasks([]);
       }
     } catch (err) {
       console.error(err);
@@ -176,7 +181,7 @@ export default function PropertyPage() {
       }
 
       setNewTaskTitle('');
-      await fetchTasks(); // Refresh tasks
+      await fetchTasks(); // Refresh pending tasks only
     } catch (err) {
       console.error(err);
       setError(err.message || 'Failed to create task');
@@ -219,7 +224,12 @@ export default function PropertyPage() {
   };
 
   const handleFilterCompletedTasks = () => {
-    fetchTasks(startDate || null, endDate || null);
+    // Only load completed tasks when user explicitly filters
+    fetchTasks({
+      includeCompleted: true,
+      start: startDate || null,
+      end: endDate || null,
+    });
   };
 
   const handleCompleteTask = async (taskId) => {
@@ -243,7 +253,7 @@ export default function PropertyPage() {
         throw new Error(data.message || 'Failed to complete task');
       }
 
-      await fetchTasks(); // Refresh tasks
+      await fetchTasks(); // Refresh pending tasks only
     } catch (err) {
       console.error(err);
       setError(err.message || 'Failed to complete task');

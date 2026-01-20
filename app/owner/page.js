@@ -11,6 +11,7 @@ export default function OwnerPage() {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [showInfo, setShowInfo] = useState(false);
 
   useEffect(() => {
     const role = localStorage.getItem('role');
@@ -122,14 +123,24 @@ export default function OwnerPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
       {/* Navbar */}
-      <nav className="bg-gray-800/50 backdrop-blur-md border-b border-gray-700 p-3 sm:p-4">
+      <nav className="bg-slate-900/80 backdrop-blur border-b border-slate-800 p-3 sm:p-4">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
-            <div>
-              <h1 className="text-lg sm:text-xl font-bold text-blue-400">
-                {owner?.companyName || 'Owner Dashboard'}
-              </h1>
-              <p className="text-xs sm:text-sm text-gray-400">Welcome, {owner?.name}</p>
+            <div className="flex items-center gap-2">
+              <div>
+                <h1 className="text-lg sm:text-xl font-semibold text-slate-100">
+                  {owner?.companyName || 'Owner Dashboard'}
+                </h1>
+                <p className="text-xs sm:text-sm text-slate-400">Welcome, {owner?.name}</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowInfo((v) => !v)}
+                className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full border border-slate-700 text-[11px] text-slate-400 hover:text-slate-100 hover:border-slate-500"
+                aria-label="Owner help"
+              >
+                i
+              </button>
             </div>
             <div className="flex flex-wrap gap-2 w-full sm:w-auto">
               <button
@@ -156,6 +167,15 @@ export default function OwnerPage() {
       </nav>
 
       <div className="max-w-7xl mx-auto p-4 sm:p-6">
+        {showInfo && (
+          <div className="mb-4 rounded-lg border border-slate-800 bg-slate-900 px-3 py-2 text-xs text-slate-300 space-y-1">
+            <p className="font-medium text-slate-100">What owners can do</p>
+            <p>- Create and manage properties</p>
+            <p>- Create employees and assign them to properties</p>
+            <p>- Create, complete, and review cleaning tasks</p>
+            <p>- Monitor subscription limits (properties, employees, expiry)</p>
+          </div>
+        )}
         {/* Owner Info Card */}
         <div className="bg-gradient-to-br from-blue-900/30 to-purple-900/30 backdrop-blur-md rounded-xl p-4 sm:p-6 mb-4 sm:mb-6 border-2 border-blue-500/50 shadow-2xl">
           <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-5 text-blue-400 flex items-center gap-2">
