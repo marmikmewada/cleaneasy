@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
+import HelpButton from '../../../components/HelpButton';
 
 export default function PropertyPage() {
   const params = useParams();
@@ -298,6 +299,7 @@ export default function PropertyPage() {
               ← Back
             </button>
             <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-blue-400 truncate">Property: {property?.name}</h1>
+            <HelpButton context="property-page" />
           </div>
           {!isEmployee && (
             <div className="flex flex-wrap gap-2 w-full sm:w-auto">

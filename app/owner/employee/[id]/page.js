@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
+import HelpButton from '../../../components/HelpButton';
 
 export default function EmployeePage() {
   const params = useParams();
@@ -158,21 +159,24 @@ export default function EmployeePage() {
     );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white p-4 sm:p-6">
+    <div className="min-h-screen bg-[#0b0e14] text-slate-100 p-4 sm:p-6">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
           <div className="flex items-center gap-2 sm:gap-4">
             <button
               onClick={() => router.push('/owner')}
-              className="bg-gray-700 px-3 py-2 sm:px-4 sm:py-2 rounded-lg hover:bg-gray-600 transition-colors text-sm sm:text-base"
+              className="bg-slate-800 px-3 py-2 sm:px-4 sm:py-2 rounded-lg hover:bg-slate-700 transition-colors text-sm sm:text-base border border-slate-700"
             >
               ← Back
             </button>
-            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-blue-400">Employee Details</h1>
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-slate-100">
+              Employee details
+            </h1>
+            <HelpButton context="owner-employee-detail" />
           </div>
           <button
             onClick={handleDeleteEmployee}
-            className="bg-red-600 px-4 py-2 rounded-lg hover:bg-red-700 transition-colors text-sm sm:text-base w-full sm:w-auto"
+            className="bg-rose-600 px-4 py-2 rounded-lg hover:bg-rose-700 transition-colors text-sm sm:text-base w-full sm:w-auto border border-rose-500/60"
           >
             Delete Employee
           </button>
@@ -186,32 +190,30 @@ export default function EmployeePage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           {/* Employee Info */}
-          <div className="bg-gradient-to-br from-blue-900/30 to-purple-900/30 backdrop-blur-md rounded-xl p-4 sm:p-6 border-2 border-blue-500/50 shadow-2xl">
-            <h2 className="text-lg sm:text-xl font-semibold mb-4 text-blue-400 flex items-center gap-2">
-              <span className="text-xl sm:text-2xl">👤</span>
-              Employee Information
+          <div className="bg-slate-900 rounded-xl p-4 sm:p-6 border border-slate-800 shadow-md">
+            <h2 className="text-lg sm:text-xl font-medium mb-4 text-slate-100">
+              Employee information
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-              <div className="bg-gray-700/30 rounded-lg p-3 border border-gray-600">
-                <p className="text-xs sm:text-sm text-gray-400 mb-1">Name</p>
-                <p className="text-base sm:text-lg font-bold text-white">{employee?.name}</p>
+              <div className="bg-slate-950 rounded-lg p-3 border border-slate-800">
+                <p className="text-xs uppercase tracking-wide text-slate-500 mb-1">Name</p>
+                <p className="text-base sm:text-lg font-medium text-slate-100">{employee?.name}</p>
               </div>
-              <div className="bg-gray-700/30 rounded-lg p-3 border border-gray-600">
-                <p className="text-xs sm:text-sm text-gray-400 mb-1">Email</p>
-                <p className="text-base sm:text-lg font-medium text-gray-300 break-all">{employee?.email}</p>
+              <div className="bg-slate-950 rounded-lg p-3 border border-slate-800">
+                <p className="text-xs uppercase tracking-wide text-slate-500 mb-1">Email</p>
+                <p className="text-base sm:text-lg font-medium text-slate-300 break-all">{employee?.email}</p>
               </div>
-              <div className="bg-gray-700/30 rounded-lg p-3 border border-gray-600 sm:col-span-2">
-                <p className="text-xs sm:text-sm text-gray-400 mb-1">Role</p>
-                <p className="text-base sm:text-lg font-medium text-white">{employee?.role}</p>
+              <div className="bg-slate-950 rounded-lg p-3 border border-slate-800 sm:col-span-2">
+                <p className="text-xs uppercase tracking-wide text-slate-500 mb-1">Role</p>
+                <p className="text-base sm:text-lg font-medium text-slate-100">{employee?.role}</p>
               </div>
             </div>
           </div>
 
           {/* Property Assignment */}
-          <div className="bg-gray-800/50 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-gray-700 shadow-xl">
-            <h2 className="text-lg sm:text-xl font-semibold mb-4 text-blue-400 flex items-center gap-2">
-              <span className="text-xl sm:text-2xl">🏢</span>
-              Assign Properties
+          <div className="bg-slate-900 rounded-xl p-4 sm:p-6 border border-slate-800 shadow-md">
+            <h2 className="text-lg sm:text-xl font-medium mb-4 text-slate-100">
+              Assign properties
             </h2>
             {allProperties.length === 0 ? (
               <div className="text-center py-8">
@@ -220,16 +222,16 @@ export default function EmployeePage() {
               </div>
             ) : (
               <>
-                <div className="bg-gray-700/30 rounded-lg p-3 sm:p-4 border border-gray-600 max-h-64 sm:max-h-80 overflow-y-auto mb-4">
+                <div className="bg-slate-950 rounded-lg p-3 sm:p-4 border border-slate-800 max-h-64 sm:max-h-80 overflow-y-auto mb-4">
                   {allProperties.map(prop => {
                     const isSelected = selectedProperties.includes(prop._id);
                     return (
                       <label
                         key={prop._id}
-                        className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all mb-2 ${
+                        className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all mb-2 border ${
                           isSelected
-                            ? 'bg-blue-600/50 border-2 border-blue-500'
-                            : 'bg-gray-600/30 border-2 border-gray-600 hover:border-gray-500'
+                            ? 'bg-slate-900 border-slate-600'
+                            : 'bg-slate-950 border-slate-800 hover:border-slate-600'
                         }`}
                       >
                         <input
@@ -242,26 +244,26 @@ export default function EmployeePage() {
                               setSelectedProperties(selectedProperties.filter(id => id !== prop._id));
                             }
                           }}
-                          className="w-4 h-4 sm:w-5 sm:h-5 rounded border-gray-500 text-blue-600 focus:ring-blue-500"
+                          className="w-4 h-4 sm:w-5 sm:h-5 rounded border-slate-600 text-sky-500 focus:ring-sky-500"
                         />
                         <div className="flex-1 min-w-0">
-                          <div className="font-medium text-white text-sm sm:text-base truncate">{prop.name}</div>
-                          <div className="text-xs sm:text-sm text-gray-400">{prop.status}</div>
+                          <div className="font-medium text-slate-100 text-sm sm:text-base truncate">{prop.name}</div>
+                          <div className="text-xs sm:text-sm text-slate-400">{prop.status}</div>
                         </div>
                         {isSelected && (
-                          <span className="text-blue-400 text-lg sm:text-xl flex-shrink-0">✓</span>
+                          <span className="text-sky-400 text-lg sm:text-xl flex-shrink-0">✓</span>
                         )}
                       </label>
                     );
                   })}
                 </div>
-                <p className="text-xs sm:text-sm text-gray-400 mb-4 text-center">
+                <p className="text-xs sm:text-sm text-slate-400 mb-4 text-center">
                   {selectedProperties.length} property(s) selected
                 </p>
                 <button
                   onClick={handleSave}
                   disabled={saving}
-                  className="w-full bg-blue-600 px-4 py-3 rounded-lg hover:bg-blue-700 disabled:bg-gray-600 transition-colors font-medium text-sm sm:text-base"
+                  className="w-full bg-slate-100 text-slate-900 px-4 py-3 rounded-lg hover:bg-slate-200 disabled:bg-slate-700 disabled:text-slate-300 transition-colors font-medium text-sm sm:text-base"
                 >
                   {saving ? 'Saving...' : 'Save Assignments'}
                 </button>
@@ -270,10 +272,9 @@ export default function EmployeePage() {
           </div>
 
           {/* Currently Assigned Properties */}
-          <div className="bg-gray-800/50 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-gray-700 shadow-xl lg:col-span-2">
-            <h2 className="text-lg sm:text-xl font-semibold mb-4 text-blue-400 flex items-center gap-2">
-              <span className="text-xl sm:text-2xl">📋</span>
-              Assigned Properties ({selectedProperties.length})
+          <div className="bg-slate-900 rounded-xl p-4 sm:p-6 border border-slate-800 shadow-md lg:col-span-2">
+            <h2 className="text-lg sm:text-xl font-medium mb-4 text-slate-100">
+              Assigned properties <span className="text-slate-400">({selectedProperties.length})</span>
             </h2>
             {selectedProperties.length === 0 ? (
               <div className="text-center py-8 bg-gray-700/30 rounded-lg border border-gray-600">
@@ -286,15 +287,15 @@ export default function EmployeePage() {
                   .map(prop => (
                     <div
                       key={prop._id}
-                      className="bg-gradient-to-r from-gray-700/50 to-gray-600/50 hover:from-gray-600/70 hover:to-gray-500/70 rounded-xl p-4 cursor-pointer transition-all duration-300 border-2 border-gray-600 hover:border-green-500 hover:shadow-lg hover:scale-105 transform"
+                      className="bg-slate-950 rounded-xl p-4 cursor-pointer transition-all duration-200 border border-slate-800 hover:border-slate-600 hover:bg-slate-900"
                       onClick={() => router.push(`/owner/property/${prop._id}`)}
                     >
-                      <div className="font-bold text-base sm:text-lg text-white mb-2">{prop.name}</div>
+                      <div className="font-medium text-base sm:text-lg text-slate-100 mb-2">{prop.name}</div>
                       <div className="flex items-center gap-2">
                         <span className={`px-2 py-1 rounded-full text-xs font-bold ${
                           prop.status === 'active' 
-                            ? 'bg-green-500 text-white' 
-                            : 'bg-gray-600 text-gray-300'
+                            ? 'bg-emerald-600/80 text-emerald-50 border border-emerald-500/60' 
+                            : 'bg-slate-800 text-slate-200 border border-slate-700'
                         }`}>
                           {prop.status}
                         </span>

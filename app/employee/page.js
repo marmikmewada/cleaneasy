@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import HelpButton from '../components/HelpButton';
 
 export default function EmployeePage() {
   const router = useRouter();
@@ -61,20 +62,20 @@ export default function EmployeePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      <div className="min-h-screen bg-[#0b0e14] text-slate-100 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-sky-500"></div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-red-400 flex items-center justify-center">
+      <div className="min-h-screen bg-[#0b0e14] text-rose-300 flex items-center justify-center">
         <div className="text-center">
           <p className="text-xl mb-4">{error}</p>
           <button
             onClick={handleLogout}
-            className="bg-red-600 px-4 py-2 rounded hover:bg-red-700"
+            className="bg-rose-600 px-4 py-2 rounded hover:bg-rose-700 border border-rose-500/60 text-slate-100"
           >
             Go to Login
           </button>
@@ -84,20 +85,23 @@ export default function EmployeePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
+    <div className="min-h-screen bg-[#0b0e14] text-slate-100">
       {/* Navbar */}
-      <nav className="bg-gray-800/50 backdrop-blur-md border-b border-gray-700 p-3 sm:p-4">
+      <nav className="bg-slate-900/80 backdrop-blur border-b border-slate-800 p-3 sm:p-4">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
-            <div>
-              <h1 className="text-lg sm:text-xl font-bold text-blue-400">
-                {owner?.companyName || 'Employee Dashboard'}
-              </h1>
-              <p className="text-xs sm:text-sm text-gray-400">Welcome, {employee?.name}</p>
+            <div className="flex items-center gap-2">
+              <div>
+                <h1 className="text-lg sm:text-xl font-semibold text-slate-100">
+                  {owner?.companyName || 'Employee Dashboard'}
+                </h1>
+                <p className="text-xs sm:text-sm text-slate-400">Welcome, {employee?.name}</p>
+              </div>
+              <HelpButton context="employee-dashboard" />
             </div>
             <button
               onClick={handleLogout}
-              className="bg-red-600 px-3 py-2 sm:px-4 sm:py-2 rounded-lg hover:bg-red-700 transition-colors text-xs sm:text-sm w-full sm:w-auto"
+              className="bg-rose-600 px-3 py-2 sm:px-4 sm:py-2 rounded-lg hover:bg-rose-700 transition-colors text-xs sm:text-sm w-full sm:w-auto border border-rose-500/60"
             >
               Logout
             </button>
@@ -107,77 +111,72 @@ export default function EmployeePage() {
 
       <div className="max-w-7xl mx-auto p-4 sm:p-6">
         {/* Employee Info Card */}
-        <div className="bg-gradient-to-br from-blue-900/30 to-purple-900/30 backdrop-blur-md rounded-xl p-4 sm:p-6 mb-4 sm:mb-6 border-2 border-blue-500/50 shadow-2xl">
-          <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-5 text-blue-400 flex items-center gap-2">
-            <span className="text-xl sm:text-2xl">👤</span>
-            My Profile
+        <div className="bg-slate-900 rounded-xl p-4 sm:p-6 mb-4 sm:mb-6 border border-slate-800 shadow-md">
+          <h2 className="text-lg sm:text-xl font-medium mb-4 sm:mb-5 text-slate-100">
+            My profile
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-            <div className="bg-gray-700/30 rounded-lg p-3 border border-gray-600">
-              <p className="text-xs sm:text-sm text-gray-400 mb-1">Your Name</p>
-              <p className="text-base sm:text-xl font-bold text-white">{employee?.name}</p>
+            <div className="bg-slate-950 rounded-lg p-3 border border-slate-800">
+              <p className="text-xs uppercase tracking-wide text-slate-500 mb-1">Name</p>
+              <p className="text-base sm:text-xl font-medium text-slate-100">{employee?.name}</p>
             </div>
-            <div className="bg-gray-700/30 rounded-lg p-3 border border-gray-600">
-              <p className="text-xs sm:text-sm text-gray-400 mb-1">Company</p>
-              <p className="text-base sm:text-xl font-bold text-white">{owner?.companyName || 'N/A'}</p>
+            <div className="bg-slate-950 rounded-lg p-3 border border-slate-800">
+              <p className="text-xs uppercase tracking-wide text-slate-500 mb-1">Company</p>
+              <p className="text-base sm:text-xl font-medium text-slate-100">{owner?.companyName || 'N/A'}</p>
             </div>
-            <div className="bg-gray-700/30 rounded-lg p-3 border border-gray-600">
-              <p className="text-xs sm:text-sm text-gray-400 mb-1">Email</p>
-              <p className="text-sm sm:text-lg font-medium text-gray-300 break-all">{employee?.email}</p>
+            <div className="bg-slate-950 rounded-lg p-3 border border-slate-800">
+              <p className="text-xs uppercase tracking-wide text-slate-500 mb-1">Email</p>
+              <p className="text-sm sm:text-lg font-medium text-slate-300 break-all">{employee?.email}</p>
             </div>
-            <div className="bg-gray-700/30 rounded-lg p-3 border border-gray-600">
-              <p className="text-xs sm:text-sm text-gray-400 mb-1">Manager</p>
-              <p className="text-sm sm:text-lg font-medium text-gray-300">{owner?.name}</p>
+            <div className="bg-slate-950 rounded-lg p-3 border border-slate-800">
+              <p className="text-xs uppercase tracking-wide text-slate-500 mb-1">Manager</p>
+              <p className="text-sm sm:text-lg font-medium text-slate-300">{owner?.name}</p>
             </div>
           </div>
         </div>
 
         {/* Properties Section */}
-        <div className="bg-gray-800/50 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-gray-700 shadow-xl">
-          <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 text-blue-400 flex items-center gap-2">
-            <span className="text-xl sm:text-2xl">📋</span>
-            My Properties ({properties.length})
+        <div className="bg-slate-900 rounded-xl p-4 sm:p-6 border border-slate-800 shadow-md">
+          <h2 className="text-lg sm:text-xl font-medium mb-4 sm:mb-6 text-slate-100">
+            My properties <span className="text-slate-400">({properties.length})</span>
           </h2>
           {properties.length === 0 ? (
-            <div className="text-center py-12 bg-gray-700/30 rounded-lg border border-gray-600">
-              <div className="text-6xl mb-4">🏢</div>
-              <p className="text-gray-300 text-xl mb-2">No properties assigned yet</p>
-              <p className="text-gray-500 text-sm">Contact your manager to get assigned to properties</p>
+            <div className="text-center py-12 bg-slate-950 rounded-lg border border-slate-800">
+              <p className="text-slate-200 text-base sm:text-lg mb-2">No properties assigned yet</p>
+              <p className="text-slate-500 text-sm">Ask your manager to assign you to a property.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
               {properties.map((prop) => (
                 <div
                   key={prop._id}
-                  className="bg-gradient-to-br from-gray-700/50 to-gray-600/50 hover:from-gray-600/70 hover:to-gray-500/70 rounded-xl p-4 sm:p-5 cursor-pointer transition-all duration-300 border-2 border-gray-600 hover:border-blue-500 hover:shadow-2xl hover:scale-105 transform"
+                  className="bg-slate-950 rounded-xl p-4 sm:p-5 cursor-pointer transition-all duration-200 border border-slate-800 hover:border-slate-600 hover:bg-slate-900"
                   onClick={() => router.push(`/employee/property/${prop._id}`)}
                 >
                   <div className="flex justify-between items-start mb-3 gap-2">
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-base sm:text-xl font-bold text-white mb-2 truncate">{prop.name}</h3>
+                      <h3 className="text-base sm:text-lg font-medium text-slate-100 mb-1 truncate">{prop.name}</h3>
                     </div>
                     <span className={`px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs font-bold flex-shrink-0 ${
                       prop.status === 'active' 
-                        ? 'bg-green-500 text-white shadow-lg shadow-green-500/50' 
-                        : 'bg-gray-600 text-gray-300'
+                        ? 'bg-emerald-600/80 text-emerald-50 border border-emerald-500/60' 
+                        : 'bg-slate-800 text-slate-200 border border-slate-700'
                     }`}>
                       {prop.status === 'active' ? '✓ Active' : prop.status}
                     </span>
                   </div>
                   {prop.pendingTasksCount > 0 ? (
-                    <div className="bg-red-500/20 border-2 border-red-500 rounded-lg p-2 sm:p-3 mt-3">
+                    <div className="bg-rose-500/10 border border-rose-500/40 rounded-lg p-2 sm:p-3 mt-3">
                       <div className="flex items-center gap-2">
-                        <span className="text-xl sm:text-2xl">📋</span>
                         <div>
-                          <div className="text-red-300 font-bold text-base sm:text-lg">{prop.pendingTasksCount}</div>
-                          <div className="text-red-400 text-xs">Tasks Pending</div>
+                          <div className="text-rose-200 font-semibold text-base sm:text-lg">{prop.pendingTasksCount}</div>
+                          <div className="text-rose-300/80 text-xs">Pending tasks</div>
                         </div>
                       </div>
                     </div>
                   ) : (
-                    <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-400 mt-3">
-                      <span className="text-base sm:text-lg">✅</span>
-                      <span>All tasks completed!</span>
+                    <div className="text-xs sm:text-sm text-slate-400 mt-3">
+                      No pending tasks
                     </div>
                   )}
                 </div>

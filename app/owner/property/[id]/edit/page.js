@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import jwt from 'jsonwebtoken';
+import HelpButton from '../../../../components/HelpButton';
 
 export default function EditPropertyPage() {
   const router = useRouter();
@@ -154,16 +155,17 @@ export default function EditPropertyPage() {
     return <div className="min-h-screen flex items-center justify-center text-red-400">{error}</div>;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white p-6">
+    <div className="min-h-screen bg-[#0b0e14] text-slate-100 p-4 sm:p-6">
       <div className="max-w-3xl mx-auto">
         <div className="flex items-center gap-4 mb-6">
           <button
             onClick={() => router.push(`/owner/property/${propertyId}`)}
-            className="bg-gray-700 px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors"
+            className="bg-slate-800 px-4 py-2 rounded-lg hover:bg-slate-700 transition-colors border border-slate-700"
           >
             ← Back
           </button>
-          <h1 className="text-3xl font-bold text-blue-400">Edit Property</h1>
+          <h1 className="text-2xl sm:text-3xl font-semibold text-slate-100">Edit property</h1>
+          <HelpButton context="property-page" />
         </div>
 
         {error && (
@@ -172,23 +174,23 @@ export default function EditPropertyPage() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-6 bg-gray-800/50 backdrop-blur-md rounded-xl p-6 border border-gray-700 shadow-xl">
+        <form onSubmit={handleSubmit} className="space-y-6 bg-slate-900 rounded-xl p-6 border border-slate-800 shadow-md">
           <div>
-            <label className="block text-sm text-gray-400 mb-2">Property Name</label>
+            <label className="block text-sm text-slate-400 mb-2">Property name</label>
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white focus:border-blue-500 focus:outline-none transition-colors"
+              className="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-lg text-slate-100 focus:border-sky-500 focus:outline-none transition-colors"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm text-gray-400 mb-2">Status</label>
+            <label className="block text-sm text-slate-400 mb-2">Status</label>
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value)}
-              className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white focus:border-blue-500 focus:outline-none transition-colors"
+              className="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-lg text-slate-100 focus:border-sky-500 focus:outline-none transition-colors"
               required
             >
               <option value="active">Active</option>
@@ -200,9 +202,9 @@ export default function EditPropertyPage() {
             <label className="block text-sm text-gray-400 mb-2">
               Assign Employees (Hold Ctrl/Cmd to select multiple)
             </label>
-            <div className="bg-gray-700/30 rounded-lg p-4 border border-gray-600 max-h-64 overflow-y-auto">
+            <div className="bg-slate-950 rounded-lg p-4 border border-slate-800 max-h-64 overflow-y-auto">
               {employees.length === 0 ? (
-                <p className="text-gray-400 text-center py-4">No employees available. Create employees first.</p>
+                <p className="text-slate-500 text-center py-4">No employees available. Create employees first.</p>
               ) : (
                 <div className="space-y-2">
                   {employees.map(emp => {
@@ -210,10 +212,10 @@ export default function EditPropertyPage() {
                     return (
                       <label
                         key={emp._id}
-                        className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all ${
+                        className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all border ${
                           isSelected
-                            ? 'bg-blue-600/50 border-2 border-blue-500'
-                            : 'bg-gray-600/30 border-2 border-gray-600 hover:border-gray-500'
+                            ? 'bg-slate-900 border-slate-600'
+                            : 'bg-slate-950 border-slate-800 hover:border-slate-600'
                         }`}
                       >
                         <input
@@ -226,14 +228,14 @@ export default function EditPropertyPage() {
                               setSelectedEmployees(selectedEmployees.filter(id => id !== emp._id));
                             }
                           }}
-                          className="w-5 h-5 rounded border-gray-500 text-blue-600 focus:ring-blue-500"
+                          className="w-5 h-5 rounded border-slate-600 text-sky-500 focus:ring-sky-500"
                         />
                         <div className="flex-1">
-                          <div className="font-medium text-white">{emp.name}</div>
-                          <div className="text-sm text-gray-400">{emp.email}</div>
+                          <div className="font-medium text-slate-100">{emp.name}</div>
+                          <div className="text-sm text-slate-400">{emp.email}</div>
                         </div>
                         {isSelected && (
-                          <span className="text-blue-400 text-xl">✓</span>
+                          <span className="text-sky-400 text-xl">✓</span>
                         )}
                       </label>
                     );
@@ -241,7 +243,7 @@ export default function EditPropertyPage() {
                 </div>
               )}
             </div>
-            <p className="text-xs text-gray-500 mt-2">
+            <p className="text-xs text-slate-500 mt-2">
               {selectedEmployees.length} employee(s) selected
             </p>
           </div>
@@ -250,14 +252,14 @@ export default function EditPropertyPage() {
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 bg-blue-600 px-6 py-3 rounded-lg hover:bg-blue-700 disabled:bg-gray-600 transition-colors font-medium text-lg"
+              className="flex-1 bg-slate-100 text-slate-900 px-6 py-3 rounded-lg hover:bg-slate-200 disabled:bg-slate-700 disabled:text-slate-300 transition-colors font-medium text-lg"
             >
               {loading ? 'Saving...' : 'Save Changes'}
             </button>
             <button
               type="button"
               onClick={() => router.push(`/owner/property/${propertyId}`)}
-              className="bg-gray-600 px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors font-medium"
+              className="bg-slate-800 px-6 py-3 rounded-lg hover:bg-slate-700 transition-colors font-medium border border-slate-700"
             >
               Cancel
             </button>
