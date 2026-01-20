@@ -272,46 +272,48 @@ export default function PropertyPage() {
 
   if (loading)
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white flex items-center justify-center">
+      <div className="min-h-screen bg-[#0b0e14] text-slate-100 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p>Loading property...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-sky-500 mx-auto mb-4"></div>
+          <p className="text-sm text-slate-300">Loading property...</p>
         </div>
       </div>
     );
 
   if (error && !property)
     return (
-      <div className="min-h-screen flex items-center justify-center text-red-400">
+      <div className="min-h-screen bg-[#0b0e14] flex items-center justify-center text-rose-300">
         {error}
       </div>
     );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white p-4 sm:p-6">
+    <div className="min-h-screen bg-[#0b0e14] text-slate-100 p-4 sm:p-6">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
           <div className="flex items-center gap-2 sm:gap-4">
             <button
               onClick={() => router.push(redirectPath)}
-              className="bg-gray-700 px-3 py-2 sm:px-4 sm:py-2 rounded-lg hover:bg-gray-600 transition-colors text-sm sm:text-base"
+              className="bg-slate-800 px-3 py-2 sm:px-4 sm:py-2 rounded-lg hover:bg-slate-700 transition-colors text-sm sm:text-base border border-slate-700"
             >
               ← Back
             </button>
-            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-blue-400 truncate">Property: {property?.name}</h1>
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-slate-100 truncate">
+              Property: <span className="text-sky-400">{property?.name}</span>
+            </h1>
             <HelpButton context="property-page" />
           </div>
           {!isEmployee && (
             <div className="flex flex-wrap gap-2 w-full sm:w-auto">
               <button
                 onClick={() => router.push(`/owner/property/${id}/edit`)}
-                className="bg-blue-600 px-3 py-2 sm:px-4 sm:py-2 rounded-lg hover:bg-blue-700 transition-colors text-xs sm:text-sm flex-1 sm:flex-none"
+                className="bg-slate-100 text-slate-900 px-3 py-2 sm:px-4 sm:py-2 rounded-lg hover:bg-slate-200 transition-colors text-xs sm:text-sm flex-1 sm:flex-none"
               >
                 Edit
               </button>
               <button
                 onClick={handleDeleteProperty}
-                className="bg-red-600 px-3 py-2 sm:px-4 sm:py-2 rounded-lg hover:bg-red-700 transition-colors text-xs sm:text-sm flex-1 sm:flex-none"
+                className="bg-rose-600 px-3 py-2 sm:px-4 sm:py-2 rounded-lg hover:bg-rose-700 transition-colors text-xs sm:text-sm flex-1 sm:flex-none border border-rose-500/60"
               >
                 Delete
               </button>
@@ -320,7 +322,7 @@ export default function PropertyPage() {
         </div>
 
         {error && (
-          <div className="bg-red-700/50 backdrop-blur-md border border-red-600 p-3 sm:p-4 rounded-lg mb-4 sm:mb-6 text-center text-sm sm:text-base">
+          <div className="bg-rose-900/40 border border-rose-500/70 p-3 sm:p-4 rounded-lg mb-4 sm:mb-6 text-center text-sm sm:text-base">
             {error}
           </div>
         )}
@@ -328,41 +330,42 @@ export default function PropertyPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Property Info */}
           <div className="lg:col-span-1">
-            <div className="bg-gray-800/50 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-gray-700 shadow-xl mb-4 sm:mb-6">
-              <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-blue-400">Property Information</h2>
+            <div className="bg-slate-900 rounded-xl p-4 sm:p-6 border border-slate-800 shadow-md mb-4 sm:mb-6">
+              <h2 className="text-base sm:text-lg font-medium mb-3 sm:mb-4 text-slate-100">Property information</h2>
               <div className="space-y-3">
                 <div>
-                  <p className="text-sm text-gray-400">Name</p>
-                  <p className="text-lg font-medium">{property?.name}</p>
+                  <p className="text-xs uppercase tracking-wide text-slate-500">Name</p>
+                  <p className="text-lg font-medium text-slate-100">{property?.name}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-400">Status</p>
+                  <p className="text-xs uppercase tracking-wide text-slate-500">Status</p>
                   <span className={`inline-block px-3 py-1 rounded text-sm ${
                     property?.status === 'active' 
-                      ? 'bg-green-600 text-white' 
-                      : 'bg-gray-600 text-gray-300'
+                      ? 'bg-emerald-600/80 text-emerald-50 border border-emerald-500/60' 
+                      : 'bg-slate-800 text-slate-200 border border-slate-700'
                   }`}>
                     {property?.status}
                   </span>
                 </div>
                 {!isEmployee && (
                   <div>
-                    <p className="text-sm text-gray-400">Owner ID</p>
-                    <p className="text-lg font-medium">{property?.ownerId}</p>
+                    <p className="text-xs uppercase tracking-wide text-slate-500">Owner ID</p>
+                    <p className="text-xs font-mono text-slate-300 break-all">{property?.ownerId}</p>
                   </div>
                 )}
               </div>
 
               {!isEmployee && (
                 <>
-                  <h3 className="mt-4 font-semibold text-blue-400">Assigned Employees</h3>
+                  <h3 className="mt-4 font-medium text-slate-100">Assigned employees</h3>
                   {property?.employees?.length === 0 ? (
-                    <p className="text-gray-400 text-sm mt-2">No employees assigned</p>
+                    <p className="text-slate-500 text-sm mt-2">No employees assigned</p>
                   ) : (
                     <ul className="space-y-2 mt-2">
                       {property?.employees?.map(emp => (
-                        <li key={emp._id} className="text-sm bg-gray-700/50 p-2 rounded">
-                          {emp.name} ({emp.email})
+                        <li key={emp._id} className="text-sm bg-slate-950 p-2 rounded border border-slate-800">
+                          <div className="text-slate-100">{emp.name}</div>
+                          <div className="text-xs text-slate-400 break-all">{emp.email}</div>
                         </li>
                       ))}
                     </ul>
@@ -375,21 +378,21 @@ export default function PropertyPage() {
         {/* Tasks Section */}
         <div className="lg:col-span-2 space-y-4 sm:space-y-6">
           {/* Create Task */}
-          <div className="bg-gray-800/50 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-gray-700 shadow-xl">
-            <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-blue-400">Create New Task</h2>
+          <div className="bg-slate-900 rounded-xl p-4 sm:p-6 border border-slate-800 shadow-md">
+            <h2 className="text-base sm:text-lg font-medium mb-3 sm:mb-4 text-slate-100">Create new task</h2>
             <form onSubmit={handleCreateTask} className="flex flex-col sm:flex-row gap-2">
               <input
                 type="text"
                 value={newTaskTitle}
                 onChange={(e) => setNewTaskTitle(e.target.value)}
-                placeholder="Enter task title..."
-                className="flex-1 px-4 py-3 bg-gray-700/50 rounded-lg text-white text-sm sm:text-base border border-gray-600 focus:border-blue-500 focus:outline-none transition-colors"
+                placeholder="Short task description"
+                className="flex-1 px-4 py-3 bg-slate-950 rounded-lg text-slate-100 text-sm sm:text-base border border-slate-700 focus:border-sky-500 focus:outline-none transition-colors"
                 disabled={creatingTask}
               />
               <button
                 type="submit"
                 disabled={creatingTask || !newTaskTitle.trim()}
-                className="bg-green-600 px-4 py-3 sm:px-6 sm:py-3 rounded-lg hover:bg-green-700 disabled:bg-gray-600 transition-colors font-medium text-sm sm:text-base"
+                className="bg-slate-100 text-slate-900 px-4 py-3 sm:px-6 sm:py-3 rounded-lg hover:bg-slate-200 disabled:bg-slate-700 disabled:text-slate-300 transition-colors font-medium text-sm sm:text-base"
               >
                 {creatingTask ? 'Creating...' : 'Create'}
               </button>
@@ -397,30 +400,30 @@ export default function PropertyPage() {
           </div>
 
             {/* Pending Tasks */}
-            <div className="bg-gray-800/50 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-gray-700 shadow-xl">
-              <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-blue-400">Pending Tasks</h2>
+            <div className="bg-slate-900 rounded-xl p-4 sm:p-6 border border-slate-800 shadow-md">
+              <h2 className="text-base sm:text-lg font-medium mb-3 sm:mb-4 text-slate-100">Pending tasks</h2>
             {tasksLoading ? (
               <div className="text-center py-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500 mx-auto"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-sky-500 mx-auto"></div>
               </div>
             ) : pendingTasks.length === 0 ? (
-              <p className="text-gray-400 text-center py-8">No pending tasks</p>
+              <p className="text-slate-500 text-center py-8 text-sm">No pending tasks</p>
             ) : (
                 <div className="space-y-2 sm:space-y-3">
                   {pendingTasks.map(task => (
-                    <div key={task._id} className="bg-gray-700/50 rounded-lg p-3 sm:p-4 border border-gray-600">
+                    <div key={task._id} className="bg-slate-950 rounded-lg p-3 sm:p-4 border border-slate-800">
                       <div className="flex flex-col sm:flex-row justify-between items-start gap-2 sm:gap-0">
                         <div className="flex-1 min-w-0">
-                          <p className="font-medium text-base sm:text-lg break-words">{task.title}</p>
-                          <p className="text-xs sm:text-sm text-gray-400 mt-1 break-all">
+                          <p className="font-medium text-base sm:text-lg break-words text-slate-100">{task.title}</p>
+                          <p className="text-xs sm:text-sm text-slate-400 mt-1 break-all">
                             Created by: {task.createdBy?.name || 'Unknown'} on {formatDate(task.createdAt)}
                           </p>
                         </div>
                         <div className="flex gap-2 w-full sm:w-auto">
-                          <span className="bg-yellow-600 px-2 py-1 sm:px-3 sm:py-1 rounded text-xs font-medium">Pending</span>
+                          <span className="bg-amber-500/20 border border-amber-500/60 px-2 py-1 sm:px-3 sm:py-1 rounded text-xs font-medium text-amber-200">Pending</span>
                           <button
                             onClick={() => handleCompleteTask(task._id)}
-                            className="bg-green-600 px-3 py-1 rounded text-xs font-medium hover:bg-green-700 transition-colors flex-1 sm:flex-none"
+                            className="bg-slate-100 text-slate-900 px-3 py-1 rounded text-xs font-medium hover:bg-slate-200 transition-colors flex-1 sm:flex-none"
                           >
                             Mark Done
                           </button>
@@ -433,32 +436,32 @@ export default function PropertyPage() {
           </div>
 
             {/* Completed Tasks */}
-            <div className="bg-gray-800/50 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-gray-700 shadow-xl">
-              <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-blue-400">Completed Tasks</h2>
+            <div className="bg-slate-900 rounded-xl p-4 sm:p-6 border border-slate-800 shadow-md">
+              <h2 className="text-base sm:text-lg font-medium mb-3 sm:mb-4 text-slate-100">Completed tasks</h2>
               
               {/* Date Filter */}
               <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
                 <div>
-                  <label className="block text-xs sm:text-sm mb-1 sm:mb-2 text-gray-400">Start Date</label>
+                  <label className="block text-xs sm:text-sm mb-1 sm:mb-2 text-slate-500">Start date</label>
                   <input
                     type="date"
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
-                    className="w-full px-3 py-2 bg-gray-700/50 rounded-lg text-white text-sm sm:text-base border border-gray-600 focus:border-blue-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-slate-950 rounded-lg text-slate-100 text-sm sm:text-base border border-slate-700 focus:border-sky-500 focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs sm:text-sm mb-1 sm:mb-2 text-gray-400">End Date</label>
+                  <label className="block text-xs sm:text-sm mb-1 sm:mb-2 text-slate-500">End date</label>
                   <input
                     type="date"
                     value={endDate}
                     onChange={(e) => setEndDate(e.target.value)}
-                    className="w-full px-3 py-2 bg-gray-700/50 rounded-lg text-white text-sm sm:text-base border border-gray-600 focus:border-blue-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-slate-950 rounded-lg text-slate-100 text-sm sm:text-base border border-slate-700 focus:border-sky-500 focus:outline-none"
                   />
                 </div>
                 <button
                   onClick={handleFilterCompletedTasks}
-                  className="col-span-1 sm:col-span-2 bg-purple-600 px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors font-medium text-sm sm:text-base"
+                  className="col-span-1 sm:col-span-2 bg-slate-800 px-4 py-2 rounded-lg hover:bg-slate-700 transition-colors font-medium text-sm sm:text-base border border-slate-700"
                 >
                   Filter Tasks
                 </button>
@@ -466,25 +469,25 @@ export default function PropertyPage() {
 
             {tasksLoading ? (
               <div className="text-center py-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500 mx-auto"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-sky-500 mx-auto"></div>
               </div>
             ) : completedTasks.length === 0 ? (
-              <p className="text-gray-400 text-center py-8">No completed tasks found</p>
+              <p className="text-slate-500 text-center py-8 text-sm">No completed tasks found. Select dates and filter to view history.</p>
             ) : (
                 <div className="space-y-2 sm:space-y-3 max-h-96 overflow-y-auto">
                   {completedTasks.map(task => (
-                    <div key={task._id} className="bg-gray-700/50 rounded-lg p-3 sm:p-4 border border-gray-600">
+                    <div key={task._id} className="bg-slate-950 rounded-lg p-3 sm:p-4 border border-slate-800">
                       <div className="flex flex-col sm:flex-row justify-between items-start gap-2 sm:gap-0">
                         <div className="flex-1 min-w-0">
-                          <p className="font-medium text-base sm:text-lg break-words">{task.title}</p>
-                          <p className="text-xs sm:text-sm text-gray-400 mt-1 break-all">
+                          <p className="font-medium text-base sm:text-lg break-words text-slate-100 line-through decoration-slate-500">{task.title}</p>
+                          <p className="text-xs sm:text-sm text-slate-400 mt-1 break-all">
                             Created by: {task.createdBy?.name || 'Unknown'} on {formatDate(task.createdAt)}
                           </p>
-                          <p className="text-xs sm:text-sm text-gray-400 break-all">
+                          <p className="text-xs sm:text-sm text-slate-400 break-all">
                             Completed by: {task.completedBy?.name || 'Unknown'} on {formatDate(task.completedAt)}
                           </p>
                         </div>
-                        <span className="bg-green-600 px-2 py-1 sm:px-3 sm:py-1 rounded text-xs font-medium sm:ml-4 mt-2 sm:mt-0">Completed</span>
+                        <span className="bg-emerald-600/80 border border-emerald-500/60 px-2 py-1 sm:px-3 sm:py-1 rounded text-xs font-medium sm:ml-4 mt-2 sm:mt-0 text-emerald-50">Completed</span>
                       </div>
                     </div>
                   ))}

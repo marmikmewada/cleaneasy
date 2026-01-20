@@ -59,80 +59,68 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-900 text-white">
-      {/* Navbar */}
-      <nav className="bg-gray-800 text-white p-4 flex justify-between items-center shadow-md">
-        <div className="text-xl font-bold">CleanEasy</div>
-        <div>
-          <Link
-            href="/"
-            className="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600 transition"
-          >
-            Login
-          </Link>
+    <div className="min-h-screen flex items-center justify-center bg-[#0b0e14] text-slate-100">
+      <div className="bg-slate-900 border border-slate-800 px-6 py-7 sm:px-8 sm:py-8 rounded-xl w-full max-w-md shadow-xl">
+        <div className="mb-3 text-center">
+          <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight">CleanEasy</h1>
+          <p className="text-xs sm:text-sm text-slate-400 mt-1">Create an owner account</p>
         </div>
-      </nav>
-
-      {/* Signup Form */}
-      <div className="flex-grow flex items-center justify-center">
-        <div className="bg-gray-800 shadow-lg rounded-lg p-8 w-full max-w-md">
-          <h1 className="text-2xl font-bold mb-6 text-center">Sign Up</h1>
 
           {error && (
-            <div className="bg-red-700 text-red-100 p-3 rounded mb-4 text-center">
+            <div className="bg-rose-900/40 border border-rose-500/70 text-rose-100 p-3 rounded mb-4 text-center text-sm">
               {error}
             </div>
           )}
 
           {successMessage && (
-            <div className="bg-green-700 text-green-100 p-3 rounded mb-4 text-center">
+            <div className="bg-emerald-900/30 border border-emerald-500/60 text-emerald-100 p-3 rounded mb-4 text-center text-sm">
               {successMessage}
             </div>
           )}
 
           <form onSubmit={handleSignup} className="space-y-4">
             <div>
-              <label className="block text-gray-300 mb-1">Full Name</label>
+              <label className="block text-xs sm:text-sm text-slate-400 mb-2">Full name</label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full border border-gray-600 rounded px-3 py-2 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-lg text-slate-100 focus:border-sky-500 focus:outline-none transition-colors"
                 placeholder="Enter your name"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-gray-300 mb-1">Email</label>
+              <label className="block text-xs sm:text-sm text-slate-400 mb-2">Email</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full border border-gray-600 rounded px-3 py-2 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-lg text-slate-100 focus:border-sky-500 focus:outline-none transition-colors"
                 placeholder="Enter your email"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-gray-300 mb-1">Company Name (optional)</label>
+              <label className="block text-xs sm:text-sm text-slate-400 mb-2">Company name (optional)</label>
               <input
                 type="text"
                 value={companyName}
                 onChange={(e) => setCompanyName(e.target.value)}
-                className="w-full border border-gray-600 rounded px-3 py-2 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-lg text-slate-100 focus:border-sky-500 focus:outline-none transition-colors"
                 placeholder="Enter company name"
               />
             </div>
 
             <div>
-              <label className="block text-gray-300 mb-1">Password</label>
+              <label className="block text-xs sm:text-sm text-slate-400 mb-2">Password</label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full border border-gray-600 rounded px-3 py-2 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-lg text-slate-100 focus:border-sky-500 focus:outline-none transition-colors"
                 placeholder="Enter password"
                 required
               />
@@ -141,21 +129,18 @@ export default function SignupPage() {
             <button
               type="submit"
               disabled={loading}
-              className={`w-full bg-blue-600 py-2 rounded font-semibold hover:bg-blue-700 transition ${
-                loading ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
+              className="w-full bg-slate-100 text-slate-900 py-3 rounded-lg hover:bg-slate-200 disabled:bg-slate-700 disabled:text-slate-300 transition-colors font-medium"
             >
               {loading ? 'Signing up...' : 'Sign Up'}
             </button>
           </form>
 
-          <p className="mt-4 text-center text-gray-400 text-sm">
+          <p className="mt-4 text-center text-slate-500 text-sm">
             Already have an account?{' '}
-            <Link href="/" className="text-blue-500 hover:underline">
+            <Link href="/" className="text-sky-400 hover:text-sky-300">
               Login
             </Link>
           </p>
-        </div>
       </div>
     </div>
   );
